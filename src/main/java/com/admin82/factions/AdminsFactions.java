@@ -1,6 +1,9 @@
 package com.admin82.factions;
 
+import com.admin82.factions.compat.BurntCompat;
 import com.admin82.factions.registry.*;
+import net.neoforged.fml.ModList;
+import net.pixelbank.burnt.util.BurntProtection;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -63,6 +66,10 @@ public class AdminsFactions {
         modEventBus.addListener(ModPackets::register);
 
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+
+        if (ModList.get().isLoaded("burnt")){
+            BurntProtection.register(BurntCompat::isProtected);
+        }
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
